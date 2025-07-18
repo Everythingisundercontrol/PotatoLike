@@ -34,6 +34,7 @@ namespace Yu
             {
                 _poolStack.Push(CreateNewObject());
             }
+
             // Debug.Log(typeof(T)+"     "+_poolStack.Count);
         }
 
@@ -54,6 +55,7 @@ namespace Yu
                 Debug.LogWarning("错误引用，弹出了活跃的obj，尝试修正stack");
                 return Get();
             }
+
             obj.OnActivate();
             _activeObjects.Add(obj);
             return obj;
@@ -69,7 +71,7 @@ namespace Yu
                 Debug.LogWarning("错误引用，或回收了闲置的obj，可能重复回收");
                 return;
             }
-            
+
             obj.OnDeactivate();
             _activeObjects.Remove(obj);
             _poolStack.Push(obj);
@@ -81,25 +83,24 @@ namespace Yu
         public void AutoDestroy()
         {
             var currentTime = Time.time;
-            if (!(currentTime - _lastCheckTime > _checkInterval)) 
+            if (!(currentTime - _lastCheckTime > _checkInterval))
             {
                 return;
             }
-            
+
             _lastCheckTime = currentTime;
-            
+
             //处理活跃对象
             foreach (var obj in _activeObjects)
             {
-                
             }
-            
+
             //处理闲置对象
-            if (_poolStack.Count <= _initialSize)//保留初始化的obj数量
+            if (_poolStack.Count <= _initialSize) //保留初始化的obj数量
             {
                 return;
             }
-            
+
             var objectsToDestroy = Math.Max(1, _poolStack.Count / 10); //每次至少销毁一个闲置对象，每次最多销毁闲置对象的10%
             for (var i = 0; i < objectsToDestroy; i++)
             {
@@ -122,7 +123,7 @@ namespace Yu
                 break;
             }
         }
-        
+
         /// <summary>
         /// 创建新的对象实例
         /// </summary>

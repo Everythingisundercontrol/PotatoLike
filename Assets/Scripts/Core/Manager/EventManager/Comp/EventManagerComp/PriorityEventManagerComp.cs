@@ -17,7 +17,44 @@ namespace Yu
         private readonly Dictionary<EventName, List<(Delegate, int)>> _listenerDict1 = new();
         private readonly Dictionary<EventName, List<(Delegate, int)>> _listenerDict2 = new();
         private readonly Dictionary<EventName, List<(Delegate, int)>> _listenerDict3 = new();
-        
+
+
+        public string LogStr(EventName eventName, int paramCount)
+        {
+            switch (paramCount)
+            {
+                case 0:
+                    _listenerDict0.TryGetValue(eventName, out var list0);
+                    return LogForList(list0);
+                case 1:
+                    _listenerDict0.TryGetValue(eventName, out var list1);
+                    return LogForList(list1);
+                case 2:
+                    _listenerDict0.TryGetValue(eventName, out var list2);
+                    return LogForList(list2);
+                case 3:
+                    _listenerDict0.TryGetValue(eventName, out var list3);
+                    return LogForList(list3);
+            }
+
+            return "Null";
+        }
+
+        private static string LogForList(IEnumerable<(Delegate, int)> list)
+        {
+            if (list == null)
+            {
+                return "Null";
+            }
+
+            var log = "";
+            foreach (var (action, _) in list)
+            {
+                log += $"{action.Method.Name}, ";
+            }
+
+            return log;
+        }
         
         public override void AddListener(EventName eventName, EventManager.YuEvent listener, int priority = 0)
         {

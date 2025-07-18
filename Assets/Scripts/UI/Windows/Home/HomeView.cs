@@ -10,27 +10,28 @@ using UnityEngine.UI;
 
 public class HomeView : MonoBehaviour
 {
-    // public Button btnNewGame;
-    // public Button btnContinue;
-    public Button btnLoad;
+    public Button btnNewGame;
     public Button btnSetting;
     public Button btnQuit;
-
-
+    
     /// <summary>
-    /// 打开界面
+    /// 打开窗口
     /// </summary>
-    public void OnOpen()
+    public void OpenWindow()
     {
-        //RefreshLastSaveGame();
         gameObject.SetActive(true);
     }
 
     /// <summary>
-    /// 关闭界面
+    /// 关闭窗口
     /// </summary>
-    public void OnClose()
+    public void CloseWindow()
     {
+        if (!gameObject.activeInHierarchy)
+        {
+            return;
+        }
+
         gameObject.SetActive(false);
     }
 

@@ -44,6 +44,19 @@ namespace Yu
         OnCharacterSleepEnd,//(CharacterSleepType)角色睡觉时
         OnSkipTimeForCharacterSleep,//(GameTime->跳过的时间)角色睡觉跳过时间时
         
+        RunAndStopAnimChange,//奔跑/站立动画切换
+        
+        AttackBegin,
+        AttackEnd,
+        
+        RemoveSickleBulletCtrl,
+
         OnGmOpen, //打开GM界面时
+        
+        Pause,//暂停
+        CancelPause,//取消暂停
+        
+        Heal,//使用治疗包
+        MagGetGold,//使用磁铁吸金币
     }
 }

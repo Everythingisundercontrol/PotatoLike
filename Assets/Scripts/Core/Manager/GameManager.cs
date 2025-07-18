@@ -8,6 +8,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameLogic.BattleManager;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Object = UnityEngine.Object;
@@ -24,7 +25,7 @@ namespace Yu
         {
             base.Awake();
             DontDestroyOnLoad(gameObject);
-            
+
             _managerList.Add(AssetManager.Instance);
             _managerList.Add(SaveManager.Instance);
             _managerList.Add(ConfigManager.Instance);
@@ -37,6 +38,7 @@ namespace Yu
             _managerList.Add(SceneManager.Instance);
             _managerList.Add(UIManager.Instance);
             _managerList.Add(CameraManager.Instance);
+            _managerList.Add(BattleManager.Instance);
 
             foreach (var manager in _managerList)
             {
@@ -57,10 +59,10 @@ namespace Yu
                 if (crack)
                 {
                 }
-                
+
                 BGMManager.Instance.ReloadVolume();
                 SFXManager.Instance.ReloadVolume();
-                ReturnToTitle();
+                GoToTitle("HomeView");
             }
             catch (Exception e)
             {
@@ -74,7 +76,6 @@ namespace Yu
             {
                 manager.Update();
             }
-            
         }
 
         private void FixedUpdate()
@@ -110,11 +111,19 @@ namespace Yu
         }
 
         /// <summary>
-        /// 返回游戏标题
+        /// 前往游戏标题
         /// </summary>
-        public static void ReturnToTitle()
+        public static void GoToTitle(string openWinName)
         {
-            Instance.StartCoroutine(ReturnToTitleIEnumerator());
+            Instance.StartCoroutine(GoToTitleIEnumerator("Home", openWinName));
+        }
+
+        /// <summary>
+        /// 前往战斗场景
+        /// </summary>
+        public static void GoToBattle(string sceneName)
+        {
+            Instance.StartCoroutine(GoToBattleIEnumerator(sceneName));
         }
 
         /// <summary>
@@ -134,16 +143,32 @@ namespace Yu
         /// <summary>
         /// 返回游戏标题的协程
         /// </summary>
-        private static IEnumerator ReturnToTitleIEnumerator()
+        private static IEnumerator GoToTitleIEnumerator(string sceneName, string openWinName)
         {
             UIManager.Instance.OpenWindow("LoadingView");
             UIManager.Instance.CloseLayerWindows("NormalLayer");
             CameraManager.Instance.ResetObjCamera();
-            GC.Collect();
-            yield return SceneManager.Instance.ChangeScene("SampleScene");
+            GC.Collect(); //这个是什么？垃圾清理？
+            yield return SceneManager.Instance.ChangeScene(sceneName); //切换场景
             HUDManager.Instance.CloseAll();
             UIManager.Instance.CloseWindow("LoadingView");
+
+            UIManager.Instance.OpenWindow(openWinName);
         }
 
+        /// <summary>
+        /// 前往游戏战斗场景的协程
+        /// </summary>
+        private static IEnumerator GoToBattleIEnumerator(string sceneName)
+        {
+            UIManager.Instance.OpenWindow("LoadingView");
+            UIManager.Instance.CloseLayerWindows("NormalLayer");
+            CameraManager.Instance.ResetObjCamera();
+            GC.Collect(); //这个是什么？垃圾清理？
+            yield return SceneManager.Instance.ChangeScene(sceneName); //切换场景  //todo:切换场景来决定关卡
+            HUDManager.Instance.CloseAll();
+            UIManager.Instance.CloseWindow("LoadingView");
+            BattleManager.Instance.OnStart();
+        }
     }
 }

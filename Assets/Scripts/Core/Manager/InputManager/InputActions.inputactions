@@ -16,11 +16,11 @@
                 },
                 {
                     "name": "Attack",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "6386ae02-896b-404b-9a1c-2ffd68ad9bf1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press,Hold",
                     "initialStateCheck": false
                 },
                 {
@@ -36,6 +36,15 @@
                     "name": "Skill",
                     "type": "Button",
                     "id": "41913c9c-e174-4c40-a533-fb1fe3e8413e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Heal",
+                    "type": "Button",
+                    "id": "d8ad091e-de09-495a-91af-aaf414b10819",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -166,8 +175,8 @@
                 },
                 {
                     "name": "",
-                    "id": "dbaa55f5-cf6a-4501-85c5-f761c0969eec",
-                    "path": "<Keyboard>/j",
+                    "id": "0366a0ba-97ce-4b59-84b4-242a0d71cc59",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -183,6 +192,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Skill",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0fc24331-a13f-42eb-a4e6-bf1b498528fd",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Heal",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

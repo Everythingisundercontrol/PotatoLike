@@ -26,6 +26,11 @@ namespace Yu
         {
             _comp = new PriorityEventManagerComp();
         }
+
+        public string LogStr(EventName eventName, int paramCount)
+        {
+            return ((PriorityEventManagerComp)_comp).LogStr(eventName, paramCount);
+        }
         
         /// <summary>
         /// 订阅事件
@@ -57,7 +62,5 @@ namespace Yu
         public void Dispatch<T1, T2>(EventName eventName, T1 param1, T2 param2) => _comp.Dispatch(eventName, param1, param2);
         
         public void Dispatch<T1, T2, T3>(EventName eventName, T1 param1, T2 param2, T3 param3) => _comp.Dispatch(eventName, param1, param2, param3);
-        
-        
     }
 }

@@ -226,7 +226,7 @@ namespace Yu
                 {
                     break;
                 }
-
+                
                 ctrlBefore.CloseRoot();
                 ctrlBefore.OnClear();
             }

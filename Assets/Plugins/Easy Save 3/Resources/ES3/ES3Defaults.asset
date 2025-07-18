@@ -37,6 +37,7 @@ MonoBehaviour:
     - FancyScrollView
     - FbxBuildTestAssets
     - Luban.Runtime
+    - NavMeshPlus
     - Sirenix.OdinInspector.CompatibilityLayer
     - StompyRobot.SRDebugger
     - StompyRobot.SRF

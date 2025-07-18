@@ -55,12 +55,25 @@ namespace Yu
             var type = typeof(T);
             if (_pools.ContainsKey(type))
             {
-                Debug.LogWarning("已有对象池"+typeof(T));
+                Debug.LogWarning("已有对象池" + typeof(T));
                 return;
             }
 
             var pool = new ObjectPool<T>(initialSize, objectGenerator, maxIdleTime, checkInterval);
             _pools.Add(type, pool);
+        }
+
+        /// <summary>
+        /// 销毁对象池
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public void DestoryPool<T>()
+        {
+            var type = typeof(T);
+            if (_pools.ContainsKey(type))
+            {
+                _pools.Remove(type);
+            }
         }
 
         /// <summary>
@@ -75,6 +88,12 @@ namespace Yu
             }
 
             return null;
+        }
+
+        public bool CheckPoolExit<T>() where T : IPoolableObject
+        {
+            var type = typeof(T);
+            return _pools.ContainsKey(type);
         }
 
         /// <summary>

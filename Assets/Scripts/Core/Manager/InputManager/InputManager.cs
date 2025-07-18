@@ -4,15 +4,19 @@
 //@author       yufulao, yufulao@qq.com
 //@createTime   2024.05.18 01:26:46
 // ******************************************************************
+
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 namespace Yu
 {
     public class InputManager : BaseSingleTon<InputManager>, IMonoManager
     {
         public Vector2 CurrentMovement; //当前的移动输入值
-        public bool MovementPressed => CurrentMovement.x != 0 || CurrentMovement.y != 0; //移动是否大于0，无法判断是否摁下摁键，因为a和d一起摁，也是false
+        public bool IfPause;    //是否暂停
+
+        public bool MovementPressed => CurrentMovement.x != 0 || CurrentMovement.y != 0;//移动是否大于0，无法判断是否摁下摁键，因为a和d一起摁，也是false
         
         private readonly InputActions _inputActions = new InputActions();
 
@@ -25,8 +29,16 @@ namespace Yu
             _inputActions.UI.Hold.performed += OnHoldBegin;
             _inputActions.UI.Hold.canceled += OnHoldEnd;
             _inputActions.PlayerControl.Movement.performed += outputAction => CurrentMovement = outputAction.ReadValue<Vector2>();
-            
+
+            _inputActions.PlayerControl.Attack.started += AttackBegin;
+            _inputActions.PlayerControl.Attack.canceled += AttackEnd;
+            _inputActions.PlayerControl.Heal.started += Heal;
+
+            _inputActions.UI.Cancel.started += Pause;
+
             _inputActions.GM.Open.started += OnGMOpen;
+
+            IfPause = false;
         }
 
         public void Update()
@@ -57,7 +69,7 @@ namespace Yu
         public Vector3 GetMousePosition()
         {
             //因为Mouse.current.position.value是ref类型修饰的（什么玩意），lua中不能用，虽然可以强转vec3，但是lua也没有强转
-            return Mouse.current == null ? Vector3.zero : (Vector3)Mouse.current.position.value;
+            return Mouse.current == null ? Vector3.zero : (Vector3) Mouse.current.position.ReadValue();
         }
 
         /// <summary>
@@ -66,7 +78,7 @@ namespace Yu
         /// <returns></returns>
         public Vector3 GetTouchPosition()
         {
-            return Touchscreen.current == null ? Vector3.zero : (Vector3)Touchscreen.current.position.value;
+            return Touchscreen.current == null ? Vector3.zero : (Vector3) Touchscreen.current.position.value;
         }
 
         /// <summary>
@@ -113,6 +125,64 @@ namespace Yu
         {
             EventManager.Instance.Dispatch(EventName.OnHoldEnd);
         }
+
+        /// <summary>
+        /// 攻击开始
+        /// </summary>
+        private static void AttackBegin(InputAction.CallbackContext callbackContext)
+        {
+            EventManager.Instance.Dispatch(EventName.AttackBegin);
+            // Debug.Log("AttackBegin");
+        }
+
+        /// <summary>
+        /// 攻击结束
+        /// </summary>
+        private static void AttackEnd(InputAction.CallbackContext callbackContext)
+        {
+            EventManager.Instance.Dispatch(EventName.AttackEnd);
+            // Debug.Log("AttackEnd");
+        }
+        
+        /// <summary>
+        /// 暂停
+        /// </summary>
+        private void Pause(InputAction.CallbackContext callbackContext)
+        {
+            if (IfPause)
+            {
+                TimeScaleManager.Instance.GetTimeHolder("Game").paused = false;
+                EventManager.Instance.Dispatch(EventName.CancelPause);
+                IfPause = false;
+                return;
+            }
+
+            TimeScaleManager.Instance.GetTimeHolder("Game").paused = true;
+            EventManager.Instance.Dispatch(EventName.Pause);
+            IfPause = true;
+        }
+        
+        /// <summary>
+        /// 治疗键按下
+        /// </summary>
+        private static void Heal(InputAction.CallbackContext callbackContext)
+        {
+            EventManager.Instance.Dispatch(EventName.Heal);
+        }
+
+        // /// <summary>
+        // /// 键盘wasd对应事件
+        // /// </summary>
+        // /// <param name="callbackContext"></param>
+        // private void KeyMoveStart(InputAction.CallbackContext callbackContext)
+        // {
+        //     CurrentMovement = callbackContext.ReadValue<Vector2>();
+        //     
+        //     if (MovementPressed)
+        //     {
+        //         EventManager.Instance.Dispatch(EventName.PlayerMove,CurrentMovement);
+        //     }
+        // }
 
         //键盘事件监听
         // void Update()

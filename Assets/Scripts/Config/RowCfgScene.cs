@@ -18,6 +18,7 @@ public sealed partial class RowCfgScene : Luban.BeanBase
         Id = _buf.ReadString();
         ScenePath = _buf.ReadString();
         BGM = _buf.ReadString();
+        LevelName = _buf.ReadString();
     }
 
     public static RowCfgScene DeserializeRowCfgScene(ByteBuf _buf)
@@ -37,12 +38,17 @@ public sealed partial class RowCfgScene : Luban.BeanBase
     /// 场景背景音乐
     /// </summary>
     public readonly string BGM;
+    /// <summary>
+    /// 关卡名
+    /// </summary>
+    public readonly string LevelName;
    
     public const int __ID__ = -2129227166;
     public override int GetTypeId() => __ID__;
 
     public  void ResolveRef(Tables tables)
     {
+        
         
         
         
@@ -54,6 +60,7 @@ public sealed partial class RowCfgScene : Luban.BeanBase
         + "id:" + Id + ","
         + "scenePath:" + ScenePath + ","
         + "BGM:" + BGM + ","
+        + "LevelName:" + LevelName + ","
         + "}";
     }
 }

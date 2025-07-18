@@ -21,6 +21,122 @@ MonoBehaviour:
     m_Address: Assets/AddressableAssets
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: be375cda77f3f59448881aea258711ff
+    m_Address: Assets/AddressableAssets/Prefab/Player 0.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3d5f07a66e20b1c458c775de8f9b8f30
+    m_Address: Assets/AddressableAssets/Prefab/Player 1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: edb480a8f4de4f748895c8ccbd8434af
+    m_Address: Assets/AddressableAssets/Prefab/Enemys/BasicEnemy.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fc565717ffaaa0f459124cd37c99c330
+    m_Address: Assets/AddressableAssets/Prefab/GunPrefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 76a77cfe68ff8464898390be75aaab1b
+    m_Address: Assets/AddressableAssets/Prefab/MachineGunPrefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: dbdfb70c1c07aa54bb062728ad998bdb
+    m_Address: Assets/AddressableAssets/Prefab/ShotGunPrefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fbfc0f2a989380c4397867125203d427
+    m_Address: Assets/AddressableAssets/Prefab/Bullet 3.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 28c91451fefe8b14eb344284ea3a1464
+    m_Address: Assets/AddressableAssets/Prefab/Bullet 4.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e45a08234b47b3647a567804cee29be3
+    m_Address: Assets/AddressableAssets/Prefab/Bullet 5.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9fc327531c03df841acdf3be51fcc454
+    m_Address: Assets/AddressableAssets/Prefab/PitchforkPrefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3bf281e3b6c2aa34c99423137b69617f
+    m_Address: Assets/AddressableAssets/Prefab/ShovelPrefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7a20a84bbe1075840a8ef56e394c227e
+    m_Address: Assets/AddressableAssets/Prefab/SicklePrefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9e6fd70c95a0ebc4f88204abce93796e
+    m_Address: Assets/AddressableAssets/Prefab/SickleBulletPrefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f9d771088f581024fa36de8e1b3cada9
+    m_Address: Assets/AddressableAssets/Prefab/Enemys/SpikerEnemy.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6dd0ef022c1466647a6ea8d694861e3c
+    m_Address: Assets/AddressableAssets/Prefab/Enemys/DashEnemy.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c39b663080af31f4cad0ab1ec2609f4c
+    m_Address: Assets/AddressableAssets/Prefab/Enemys/TurretEnemy.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3bde6297e3329f34c9259c974aacd157
+    m_Address: Assets/AddressableAssets/Prefab/Enemys/CasterEnemy.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 293e84c88913ba948b24e23ec8cbb5b4
+    m_Address: Assets/AddressableAssets/Prefab/EnemyBullet1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d8c16cfd6543bee409c3e48a9d04d950
+    m_Address: Assets/AddressableAssets/Prefab/EnemyBullet2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3d53d7afb3f31f248af53547f0869eb2
+    m_Address: Assets/AddressableAssets/Prefab/EnemyBullet3.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c38269f070137a84eab286ace4f05f9b
+    m_Address: Assets/AddressableAssets/Prefab/Items/Gold.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: be7107d8936758649a540436c01da524
+    m_Address: Assets/AddressableAssets/UI/PauseView.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: da4e5c442fe5f95498c9972001f61065
+    m_Address: Assets/AddressableAssets/Prefab/EnemyHp.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4427b80b5ce1b144da393164bda8575e
+    m_Address: Assets/AddressableAssets/Prefab/Items/BoxPrefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1d82756e96e81f34db4557f0ef42039d
+    m_Address: Assets/AddressableAssets/Prefab/Items/HealthPack.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f3a196f6c62793f478228b28a31d5c19
+    m_Address: Assets/AddressableAssets/Prefab/Items/Mag.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e19256ecfc9dc034ea3696b368ec9300
+    m_Address: Assets/AddressableAssets/Scene/Home.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1896f1e93d9fc46499f182201f20d8f8
+    m_Address: Assets/AddressableAssets/UI/HomeView.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b465e493f3843b0489a0eb52b8988c31
+    m_Address: Assets/AddressableAssets/UI/MapSelectView.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a19174961d3b32943af996d43a3fd044, type: 2}
   m_SchemaSet:

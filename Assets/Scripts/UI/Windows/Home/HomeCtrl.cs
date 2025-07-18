@@ -16,17 +16,19 @@ public class HomeCtrl : UICtrlBase
     {
         _model = new HomeModel();
         _view = GetComponent<HomeView>();
+        _model.OnInit();
     }
 
     public override void OpenRoot(params object[] param)
     {
         //EventManager.Instance.AddListener(EventName.OnLastSaveGameChange, OnLastSaveGameChange);
-        _view.OnOpen();
+        _model.OnOpen();
+        _view.OpenWindow();
     }
 
     public override void CloseRoot()
     {
-        _view.OnClose();
+        _view.CloseWindow();
         //EventManager.Instance.RemoveListener(EventName.OnLastSaveGameChange, OnLastSaveGameChange);
     }
 
@@ -36,9 +38,7 @@ public class HomeCtrl : UICtrlBase
 
     public override void BindEvent()
     {
-        // _view.btnNewGame.onClick.AddListener(BtnOnClickNewGame);
-        // _view.btnContinue.onClick.AddListener(BtnOnClickContinue);
-        _view.btnLoad.onClick.AddListener(BtnOnClickLoad);
+        _view.btnNewGame.onClick.AddListener(BtnOnClickNewGame);
         _view.btnSetting.onClick.AddListener(BtnOnClickSetting);
         _view.btnQuit.onClick.AddListener(GameManager.QuitApplication);
     }
@@ -46,16 +46,10 @@ public class HomeCtrl : UICtrlBase
     /// <summary>
     /// 新游戏
     /// </summary>
-    private static void BtnOnClickNewGame()
+    private void BtnOnClickNewGame()
     {
-    }
-
-    /// <summary>
-    /// 读取存档
-    /// </summary>
-    private static void BtnOnClickLoad()
-    {
-        UIManager.Instance.OpenWindow("LoadGameView");
+        CloseRoot();
+        UIManager.Instance.OpenWindow("MapSelectView");//进入关卡选择界面
     }
 
     /// <summary>
@@ -63,9 +57,17 @@ public class HomeCtrl : UICtrlBase
     /// </summary>
     private static void BtnOnClickSetting()
     {
-        UIManager.Instance.OpenWindow("SettingView");
+        // UIManager.Instance.OpenWindow("SettingView");
     }
-
+    
+    // /// <summary>
+    // /// 读取存档
+    // /// </summary>
+    // private static void BtnOnClickLoad()
+    // {
+    //     UIManager.Instance.OpenWindow("LoadGameView");
+    // }
+    //
     // /// <summary>
     // /// 继续游戏
     // /// </summary>

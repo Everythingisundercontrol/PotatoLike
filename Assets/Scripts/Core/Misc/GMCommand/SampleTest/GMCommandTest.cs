@@ -5,6 +5,7 @@
 //@createTime   2025.02.11 01:35:44
 // ******************************************************************
 
+using GameLogic.BattleManager;
 using UnityEngine;
 using Yu;
 
@@ -29,6 +30,33 @@ public class GMCommandTest
     }
 
     /// <summary>
+    /// 显示在gm面板
+    /// </summary>
+    [GMMethodUI, GMMethod("角色死亡")]
+    public static void TestPlayer0()
+    {
+        BattleManager.Instance.TestPlayer();
+    }
+
+    /// <summary>
+    /// 显示在gm面板
+    /// </summary>
+    [GMMethodUI, GMMethod("生成敌人")]
+    public static void TestEnemy0()
+    {
+        BattleManager.Instance.TestEnemy();
+    }
+
+    /// <summary>
+    /// 显示在gm面板
+    /// </summary>
+    [GMMethodUI, GMMethod("切换武器")]
+    public static void TestWeaponsChange()
+    {
+        BattleManager.Instance.TestWeaponsChange();
+    }
+
+    /// <summary>
     /// 带参数指令
     /// </summary>
     [GMMethod("带参数指令", "输出str")]
@@ -44,6 +72,15 @@ public class GMCommandTest
     public static void TestUIParams(string str)
     {
         Debug.Log("TestUIParams" + str);
+    }
+
+    /// <summary>
+    /// 带参数指令，显示在面板，手动输入
+    /// </summary>
+    [GMMethodUI, GMMethod("武器放大倍数", "输出str")]
+    public static void TestChangeWeaponScale(float str)
+    {
+        BattleManager.Instance.TestChangeWeaponScale(str);
     }
 
     /// <summary>
@@ -63,6 +100,6 @@ public class TestStringProxy : GmParameterOptionsBase<string>
 {
     protected override object[] GetOptionsSource()
     {
-        return new object[] { "可选项0", "可选项1", "可选项2" };
+        return new object[] {"可选项0", "可选项1", "可选项2"};
     }
 }
