@@ -165,7 +165,7 @@ namespace Yu
             UIManager.Instance.CloseLayerWindows("NormalLayer");
             CameraManager.Instance.ResetObjCamera();
             GC.Collect(); //这个是什么？垃圾清理？
-            yield return SceneManager.Instance.ChangeScene(sceneName); //切换场景  //todo:切换场景来决定关卡
+            yield return SceneManager.Instance.ChangeScene(sceneName);
             HUDManager.Instance.CloseAll();
             UIManager.Instance.CloseWindow("LoadingView");
             BattleManager.Instance.OnStart();

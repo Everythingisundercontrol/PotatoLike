@@ -1,6 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Yu;
 
 namespace UI.Windows.MapSelect
 {
@@ -9,6 +10,8 @@ namespace UI.Windows.MapSelect
         public TMP_InputField levelID;
         public Button gameStart;
         public Button gameReturn;
+        public GameObject contentObj;
+        
 
         /// <summary>
         /// 打开窗口

@@ -443,7 +443,8 @@ MonoBehaviour:
   startAxisSpacing: 10
   startAxisCellCount: 2
   cellSize: {x: 740, y: 60}
-  itemPrefab: {fileID: 7940108938520874611, guid: 134bca685e477f5459e7a6154c337102, type: 3}
+  itemPrefab: {fileID: 7940108938520874611, guid: 134bca685e477f5459e7a6154c337102,
+    type: 3}
 --- !u!1 &7691993859828616116
 GameObject:
   m_ObjectHideFlags: 0
