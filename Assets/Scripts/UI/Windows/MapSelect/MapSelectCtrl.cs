@@ -91,6 +91,7 @@ namespace UI.Windows.MapSelect
             var levelCellCtrl = levelCell.GetComponent<LevelCellCtrl>();
             levelCellCtrl.OnInit();
 
+            
             return levelCellCtrl;
         }
     }
