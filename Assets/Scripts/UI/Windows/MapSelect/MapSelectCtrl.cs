@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using GameLogic.Items.Gold;
+using Unity.Mathematics;
+using UnityEngine;
 using UnityEngine.Events;
 using Yu;
 
@@ -15,6 +17,7 @@ namespace UI.Windows.MapSelect
             _model = new MapSelectModel();
             _view = GetComponent<MapSelectView>();
             _model.OnInit();
+            PoolManager.Instance.CreatePool(1, GenerateLevelCell);
         }
 
         public override void OpenRoot(params object[] param)
@@ -77,6 +80,18 @@ namespace UI.Windows.MapSelect
         /// </summary>
         private void LevelIDOnDeselect()
         {
+        }
+
+        /// <summary>
+        /// 生成关卡cell
+        /// </summary>
+        private LevelCellCtrl GenerateLevelCell()
+        {
+            var levelCell = Instantiate(_model.LevelCellPrefab, _view.contentObj.transform);
+            var levelCellCtrl = levelCell.GetComponent<LevelCellCtrl>();
+            levelCellCtrl.OnInit();
+
+            return levelCellCtrl;
         }
     }
 }
