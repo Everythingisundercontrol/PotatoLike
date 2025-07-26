@@ -11,14 +11,13 @@ public class LevelCellCtrl : MonoBehaviour, IPoolableObject
 
     public Transform trans;
     public Transform windowTrans;
-    public ScrollRect scrollRect;
+    // public ScrollRect scrollRect;
 
     public float maxScale = 2f;
     public float minScale = 1f;
     public float maxDistance = 500f;
 
     private LevelCellModel _model;
-    private LevelCellView _view;
 
     public void OnActivate() // 激活时
     {
@@ -29,6 +28,7 @@ public class LevelCellCtrl : MonoBehaviour, IPoolableObject
 
     public void OnDeactivate() // 主动归还时
     {
+        _model = null;
         Active = false;
         LastUsedTime = Time.time;
         gameObject.SetActive(false);
@@ -44,34 +44,24 @@ public class LevelCellCtrl : MonoBehaviour, IPoolableObject
         Destroy(gameObject);
     }
 
-    public void Start()
-    {
-        var parent = gameObject.transform.parent.parent.parent;
-        windowTrans = parent.transform;
-        scrollRect = parent.GetComponent<ScrollRect>();
-    }
-
-    public void Update()
-    {
-        if (scrollRect.velocity.magnitude > 0.1f)
-        {
-            ChangeScale();
-        }
-    }
-
     /// <summary>
     /// 初始化
     /// </summary>
-    public void OnInit()
+    public void OnInit(Transform scrollWindowTransform)
     {
         _model = new LevelCellModel();//todo:不应该是初始化，而应该是从MapSelectModel里面获取
-        _view = gameObject.GetComponent<LevelCellView>();
+        // _view = gameObject.GetComponent<LevelCellView>();
+        windowTrans = scrollWindowTransform;
+        
+        //初始化时默认关闭
+        Active = false;
+        gameObject.SetActive(false);
     }
 
     /// <summary>
     /// 根据与windowTrans的距离来动态改变缩放比例
     /// </summary>
-    private void ChangeScale()
+    public void ChangeScale()
     {
         var viewportCenterX = windowTrans.position.x;
         var cellCenterX = transform.position.x;
@@ -83,6 +73,13 @@ public class LevelCellCtrl : MonoBehaviour, IPoolableObject
 
         // 应用缩放
         trans.localScale = new Vector3(scale, scale, 1f);
-        Debug.Log(trans.position.x);
+    }
+
+    /// <summary>
+    /// 回收
+    /// </summary>
+    public void ReturnToPool()
+    {
+        PoolManager.Instance.ReturnObject(this);
     }
 }

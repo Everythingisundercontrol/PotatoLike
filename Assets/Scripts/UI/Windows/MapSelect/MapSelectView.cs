@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Yu;
 
@@ -10,8 +11,11 @@ namespace UI.Windows.MapSelect
         public TMP_InputField levelID;
         public Button gameStart;
         public Button gameReturn;
-        public GameObject contentObj;
+
+        public Transform scrollWindowTransform;
         
+        public ScrollRect scrollRect;
+        public GameObject contentObj;
 
         /// <summary>
         /// 打开窗口
