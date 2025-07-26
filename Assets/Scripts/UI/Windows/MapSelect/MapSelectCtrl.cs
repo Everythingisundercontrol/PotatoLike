@@ -189,6 +189,7 @@ namespace UI.Windows.MapSelect
         /// </summary>
         private void RemoveLevelCellOnFirst()
         {
+            
             _levelCellCtrlList.First.Value.ReturnToPool();
             _levelCellCtrlList.RemoveFirst();
         }
