@@ -2,6 +2,8 @@
 {
     public class LevelCellModel
     {
-        
+        public string LevelName;
+        public string SceneID;
+        public string LevelContent;
     }
 }

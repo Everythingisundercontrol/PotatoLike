@@ -17,6 +17,9 @@ namespace UI.Windows.MapSelect
         public ScrollRect scrollRect;
         public GameObject contentObj;
 
+        public Text textContent;
+        public Text LevelName;
+
         /// <summary>
         /// 打开窗口
         /// </summary>

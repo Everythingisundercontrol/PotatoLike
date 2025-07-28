@@ -145,6 +145,10 @@ MonoBehaviour:
     m_Address: Assets/AddressableAssets/UI/Component/MapSelect/LevelCell.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: b414b59f07d437d4aa31f11082a6df12
+    m_Address: Assets/AddressableAssets/Scene/TestLevelScene.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a19174961d3b32943af996d43a3fd044, type: 2}
   m_SchemaSet:

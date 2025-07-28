@@ -10,6 +10,7 @@ public class LevelCellCtrl : MonoBehaviour, IPoolableObject
     public bool Active { get; private set; }
 
     public Transform trans;
+
     public Transform windowTrans;
     // public ScrollRect scrollRect;
 
@@ -49,10 +50,10 @@ public class LevelCellCtrl : MonoBehaviour, IPoolableObject
     /// </summary>
     public void OnInit(Transform scrollWindowTransform)
     {
-        _model = new LevelCellModel();//todo:不应该是初始化，而应该是从MapSelectModel里面获取
+        _model = new LevelCellModel(); //todo:不应该是初始化，而应该是从MapSelectModel里面获取
         // _view = gameObject.GetComponent<LevelCellView>();
         windowTrans = scrollWindowTransform;
-        
+
         //初始化时默认关闭
         Active = false;
         gameObject.SetActive(false);
@@ -73,6 +74,13 @@ public class LevelCellCtrl : MonoBehaviour, IPoolableObject
 
         // 应用缩放
         trans.localScale = new Vector3(scale, scale, 1f);
+
+        if (distance > 200)
+        {
+            return;
+        }
+
+        EventManager.Instance.Dispatch(EventName.MapSelect_ChangeFocusCell, this);
     }
 
     /// <summary>
@@ -81,5 +89,39 @@ public class LevelCellCtrl : MonoBehaviour, IPoolableObject
     public void ReturnToPool()
     {
         PoolManager.Instance.ReturnObject(this);
+    }
+
+    /// <summary>
+    /// 设置关卡信息
+    /// </summary>
+    public void SetLevelInfo(RowCfgScene rowCfgScene)
+    {
+        _model.LevelName = rowCfgScene.LevelName;
+        _model.SceneID = rowCfgScene.Id;
+        _model.LevelContent = rowCfgScene.LevelContent;
+    }
+
+    /// <summary>
+    /// 获取内容
+    /// </summary>
+    public string GetContent()
+    {
+        return _model.LevelContent;
+    }
+
+    /// <summary>
+    /// 获取ID
+    /// </summary>
+    public string GetLevelID()
+    {
+        return _model.SceneID;
+    }
+
+    /// <summary>
+    /// 获取名字
+    /// </summary>
+    public string GetLevelName()
+    {
+        return _model.LevelName;
     }
 }

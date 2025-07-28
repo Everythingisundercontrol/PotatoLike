@@ -58,5 +58,7 @@ namespace Yu
         
         Heal,//使用治疗包
         MagGetGold,//使用磁铁吸金币
+        
+        MapSelect_ChangeFocusCell,//关卡选择界面改变聚焦
     }
 }

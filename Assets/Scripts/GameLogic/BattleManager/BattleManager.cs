@@ -66,7 +66,7 @@ namespace GameLogic.BattleManager
         }
 
         /// <summary>
-        /// 开始进入战斗时
+        /// 开始进入战斗时 //todo:改，贴合地图选择
         /// </summary>
         public void OnStart()
         {

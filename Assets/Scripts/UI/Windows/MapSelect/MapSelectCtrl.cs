@@ -32,7 +32,7 @@ namespace UI.Windows.MapSelect
                 levelCellCtrl.ChangeScale();
             }
 
-            CellCheck();
+            // CellCheck();
         }
 
         public override void OnInit(params object[] param)
@@ -40,13 +40,15 @@ namespace UI.Windows.MapSelect
             _model = new MapSelectModel();
             _view = GetComponent<MapSelectView>();
             _model.OnInit();
-            PoolManager.Instance.CreatePool(10, GenerateLevelCell); //初始化时创建对象池
+            PoolManager.Instance.CreatePool(1, GenerateLevelCell); //初始化时创建对象池
             _levelCellCtrlList = new LinkedList<LevelCellCtrl>();
-            for (var i = 0; i < 5; i++)
-            {
-                SetLevelCellOnFirst();
-                SetLevelCellOnLast();
-            }
+            // for (var i = 0; i < 5; i++)
+            // {
+            //     SetLevelCellOnFirst();
+            //     SetLevelCellOnLast();
+            // }
+
+            ContentListInit();
         }
 
         public override void OpenRoot(params object[] param)
@@ -68,41 +70,64 @@ namespace UI.Windows.MapSelect
         {
             _view.gameStart.onClick.AddListener(GameStartOnClick);
             _view.gameReturn.onClick.AddListener(GameReturnOnClick);
+            EventManager.Instance.AddListener<LevelCellCtrl>(EventName.MapSelect_ChangeFocusCell,SetFocusCell);
             // _view.levelID.onDeselect.AddListener();
         }
 
         /// <summary>
-        /// 检测头尾指针是否应该回收，是否应该插入。
+        /// 初始化生成ContentList
         /// </summary>
-        private void CellCheck()
+        private void ContentListInit()
         {
-            //检测头尾指针是否应该回收，是否应该插入。
-            var position = _view.scrollWindowTransform.position;
-
-            var firstDis = Mathf.Abs(_levelCellCtrlList.First.Value.transform.position.x - position.x);
-            var lastDis = Mathf.Abs(_levelCellCtrlList.Last.Value.transform.position.x - position.x);
-
-            // Debug.Log(firstDis + "   " + lastDis);
-
-            switch (firstDis)
+            foreach (var id in _model.LevelID)
             {
-                case >= 1800:
-                    RemoveLevelCellOnFirst();
-                    break;
-                case <= 1200:
-                    SetLevelCellOnFirst();
-                    break;
+                var rowCfgScene = ConfigManager.Tables.CfgScene[id];
+                SetLevelCellOnLast(rowCfgScene);
             }
+        }
 
-            switch (lastDis)
-            {
-                case >= 1800:
-                    RemoveLevelCellOnLast();
-                    break;
-                case <= 1200:
-                    SetLevelCellOnLast();
-                    break;
-            }
+        // /// <summary>
+        // /// 检测头尾指针是否应该回收，是否应该插入。
+        // /// </summary>
+        // private void CellCheck()
+        // {
+        //     //检测头尾指针是否应该回收，是否应该插入。
+        //     var position = _view.scrollWindowTransform.position;
+        //
+        //     var firstDis = Mathf.Abs(_levelCellCtrlList.First.Value.transform.position.x - position.x);
+        //     var lastDis = Mathf.Abs(_levelCellCtrlList.Last.Value.transform.position.x - position.x);
+        //
+        //     // Debug.Log(firstDis + "   " + lastDis);
+        //
+        //     switch (firstDis)
+        //     {
+        //         case >= 1800:
+        //             RemoveLevelCellOnFirst();
+        //             break;
+        //         case <= 1200:
+        //             SetLevelCellOnFirst();
+        //             break;
+        //     }
+        //
+        //     switch (lastDis)
+        //     {
+        //         case >= 1800:
+        //             RemoveLevelCellOnLast();
+        //             break;
+        //         case <= 1200:
+        //             SetLevelCellOnLast();
+        //             break;
+        //     }
+        // }
+
+        /// <summary>
+        /// 设置当前聚焦的cell
+        /// </summary>
+        private void SetFocusCell(LevelCellCtrl levelCellCtrl)
+        {
+            _view.textContent.text = levelCellCtrl.GetContent();
+            _view.LevelName.text = levelCellCtrl.GetLevelName();
+            _model.FocusLevelID = levelCellCtrl.GetLevelID();
         }
 
         /// <summary>
@@ -110,13 +135,14 @@ namespace UI.Windows.MapSelect
         /// </summary>
         private void GameStartOnClick()
         {
-            if (string.IsNullOrEmpty(_view.levelID.text))
+            if (string.IsNullOrEmpty(_model.FocusLevelID))
             {
                 Debug.Log("_view.levelID.text IsNullOrEmpty");
                 return;
             }
 
-            GameManager.GoToBattle(_view.levelID.text);
+            Debug.Log(_model.FocusLevelID);
+            GameManager.GoToBattle(_model.FocusLevelID);
         }
 
         /// <summary>
@@ -167,21 +193,23 @@ namespace UI.Windows.MapSelect
             _levelCellCtrlList.AddFirst(ctrl);
             ctrlGameObject.transform.SetAsFirstSibling(); // 插入到Content的第一个位置
             var pos = _view.contentObj.transform.position;
-            _view.contentObj.transform.position = new Vector3(pos.x - 600, pos.y, pos.z);
+            _view.contentObj.transform.position = new Vector3(pos.x, pos.y, pos.z);
         }
 
         /// <summary>
         /// 设置levelCell在content的最后一个
         /// </summary>
-        private void SetLevelCellOnLast()
+        private void SetLevelCellOnLast(RowCfgScene rowCfgScene)
         {
             var ctrl = PoolManager.Instance.GetObject<LevelCellCtrl>();
             var ctrlGameObject = ctrl.gameObject;
 
+            ctrl.SetLevelInfo(rowCfgScene);
+
             _levelCellCtrlList.AddLast(ctrl);
             ctrlGameObject.transform.SetAsLastSibling(); // 插入到Content的最后一个位置
             var pos = _view.contentObj.transform.position;
-            _view.contentObj.transform.position = new Vector3(pos.x + 600, pos.y, pos.z);
+            _view.contentObj.transform.position = new Vector3(pos.x, pos.y, pos.z);
         }
 
         /// <summary>
@@ -189,7 +217,6 @@ namespace UI.Windows.MapSelect
         /// </summary>
         private void RemoveLevelCellOnFirst()
         {
-            
             _levelCellCtrlList.First.Value.ReturnToPool();
             _levelCellCtrlList.RemoveFirst();
         }
